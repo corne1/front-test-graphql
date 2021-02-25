@@ -19,10 +19,10 @@
         <p style="margin-bottom: 20px;">Ваши задачи</p>
         <div *ngFor="let task of todos" class="task">
           <div class="task-leftside">
-            <input type="checkbox" class="task-checkbox" #taskCheck (click)="task.done=true" [ngStyle]="{'opacity': task.done ? '0' : '1'}">
+            <input type="checkbox" class="task-checkbox" (click)="completeTodo(task.id)" *ngIf="!task.done">
             <div class="task-desc">
               <p [ngStyle]="{'text-decoration': task.done ? 'line-through' : 'none'}">{{task.title}}</p>
-              <p class="task-addDate">Добавлено в: {{task.date | date: 'longDate'}}</p>
+              <p class="task-addDate">Добавлено в: {{task.createdAt | date: 'd, MMMM, y, H:mm:ss'}}(изменено {{task.updatedAt | date: 'd, MMMM, y, H:mm:ss'}})</p>
             </div>
           </div>
           <button class="task-delete" (click)="removeTask(task.id)">&times;</button>
