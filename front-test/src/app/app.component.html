@@ -1,0 +1,33 @@
+<header class="header">
+  <div class="container">
+    <h1 class="header__title">Список дел</h1>
+  </div>
+</header>
+
+<main class="section main">
+  <div class="container">
+    <div class="todo-list">
+      <h2 class="todo-list__date">{{currentDate | date:'longDate'}}</h2>
+      <p class="todo-list__count">{{todos.length}} Задач</p>
+      <div class="input-block">
+        <input type="text" placeholder="Введите название задачи" class="todo-list__input"
+          (keyup.enter)="addTask(taskInput.value)" #taskInput>
+        <button class="btn btn-input" (click)="addTask(taskInput.value)">Добавить</button>
+      </div>
+      <p *ngIf="todos.length === 0; else tasksBlock">У вас 0 задач, добавьте новую</p>
+      <ng-template #tasksBlock>
+        <p style="margin-bottom: 20px;">Ваши задачи</p>
+        <div *ngFor="let task of todos" class="task">
+          <div class="task-leftside">
+            <input type="checkbox" class="task-checkbox" #taskCheck (click)="task.done=true" [ngStyle]="{'opacity': task.done ? '0' : '1'}">
+            <div class="task-desc">
+              <p [ngStyle]="{'text-decoration': task.done ? 'line-through' : 'none'}">{{task.title}}</p>
+              <p class="task-addDate">Добавлено в: {{task.date | date: 'longDate'}}</p>
+            </div>
+          </div>
+          <button class="task-delete" (click)="removeTask(task.id)">&times;</button>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</main>
